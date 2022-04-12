@@ -1,0 +1,134 @@
+#!/usr/bin/env python
+# coding: utf-8
+
+# In[1]:
+
+
+get_ipython().run_line_magic('pwd', '')
+get_ipython().run_line_magic('cd', 'C:\\Users\\851365\\Desktop\\New folder\\CV')
+
+
+# In[2]:
+
+
+#Loading Libraries
+import numpy as np
+import pandas as pd
+#from statsmodels.stats.weightstats import ttest_ind
+#from scipy import stats
+from statsmodels.stats.proportion import proportions_ztest
+#import math
+#from scipy.stats import chisquare
+from scipy.stats import chi2_contingency
+
+
+# In[3]:
+
+
+data=pd.read_csv('CV_BASE_MAR21_FINAL.csv',header=0,sep=",",low_memory=False)
+
+
+# In[16]:
+
+
+data.columns=["SOURCE_ACCOUNT_NBR","SAMPLING_DATE","ACCOUNT_OPEN_DATE","REPO_DATE","WOFF_DATE","REST_DATE","REGION","VEHICLE_MODEL_CODE","INDIVIDUAL_CORPORATE","PROMOTIONDESC","SEGMENT_FRS","CURR_ELB","MOB","MOB_GRT6","CURR_DPD","NPA_CURR","P_X_12M","P_X_12M_SCORE","Q_EVER_RF_D_3M","Q_EVER_RF_D_3M_SCORE","GR_CHQ_BNC_12M","GR_CHQ_BNC_12M_SCORE","REGION_SCORE","Q_PPAID_ELB_6M","Q_PPAID_ELB_6M_SCORE","TOTAL_SCORE","PD_SEGM","PD_POOL_DESC","MAX_DPD_12M","MIN_NPA_DATE","REPOMONTHDIFF","NPAMONTHDIFF","WOFFMONTHDIFF","RESTMONTHDIFF","TARGET_90P","TARGET_REPO","TARGET_NPA","TARGET_WOFF","TARGET_REST","TARGET"]
+
+
+# In[17]:
+
+
+data['SAMPLING_DATE']= pd.to_datetime(data['SAMPLING_DATE'])
+
+
+# In[18]:
+
+
+data=data[data['SAMPLING_DATE']>'2011-03-31']
+
+
+# In[19]:
+
+
+x=data.PD_POOL_DESC.unique()
+y=data.SAMPLING_DATE.unique()
+pd.options.display.max_columns = None # Print all 40 columns
+
+PD_POOLS_ID = pd.DataFrame(x,columns=['PD_POOLS'])
+
+
+PD_POOLS_ID.to_csv('PD_POOLS_ID.csv',index_label='PD_Pool_Num') # output PD pools as csv
+
+#print(len(A),len(y))
+#print(x)
+#x.shape
+
+
+# In[20]:
+
+
+for i in range(1): #looping for Pools len(x)
+    
+    df=data[data['PD_POOL_DESC']==x[i]]
+    
+    df6=pd.DataFrame(columns=['total_count1','bad_count1','total_count2','bad_count2','p_val','PD_POOL_DESC','SAMPLING_DATE'])
+    
+    
+    for j in range(1): #looping for 36 quarters len(y)
+        df2=df[df['SAMPLING_DATE']==y[j]]
+        
+        for k in range(1): #looping for 100 iterations
+            df3=df2.sample(int(df2.shape[0]/5)) # taking 20% of the data as samples
+            df4=df2.loc[df2.index.difference(df3.index),] # removing indexes already present in df3
+            df4=df4.sample(df3.shape[0]) #taking 20% of the data as samples, shape is a tuple that gives dimensions of the array.
+            bad_count=[df3.TARGET.sum(),df4.TARGET.sum()] #df3 and df4 are two different saples, Target column in DPD > 90 days
+            total_count=[df3.TARGET.count(),df4.TARGET.count()]
+            #print(x[i],y[j],bad_count,total_count)
+            
+            
+            test=np.array([proportions_ztest(count=bad_count,nobs=total_count,alternative='two-sided')])  
+            test=test.tolist() #convert numpy array into list
+            A = [total_count[0],bad_count[0],total_count[1],bad_count[1],test[0][1],x[i],y[j]]
+            df5=pd.DataFrame(np.array(A).reshape(1,7),columns=['total_count1','bad_count1','total_count2','bad_count2','p_val','PD_POOL_DESC','SAMPLING_DATE'])
+            
+            df6=df6.append(df5)
+                        
+        df6['p_val']=df6['p_val'].astype('float')
+        
+        try:
+            
+            df6['stat']=-2*(np.log(df6["p_val"]))
+            df6.to_csv('Final_'+str(i)+'_20%_.csv',index=False)
+            
+            a=df6['p_val'].count()
+            b=df6['stat'].sum()
+            Val=np.array([a,b]).reshape(1,2)
+            df7=pd.DataFrame(columns=['dff','sum'],data=Val)
+            
+            chi = [df7.iloc[0,0],df7.iloc[0,1]]
+            stat2, p, dof, expected = chi2_contingency(chi) 
+            df7['pchi']=p
+            df7.to_csv('Val_'+str(i)+'_20%_.csv',index=False)
+            
+        except:
+            pass
+            
+
+
+# In[4]:
+
+
+#df2
+data.iloc[0:1000].to_csv('test.csv',index=False)
+
+
+# In[13]:
+
+
+data.isnull()
+
+
+# In[ ]:
+
+
+
+
