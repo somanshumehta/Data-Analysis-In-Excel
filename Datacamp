@@ -1,4 +1,4 @@
-
+======================================================================================================================================================================
 Introduction to eXtensible Time Series, using xts and zoo for time series
 
 xts and zoo are just two of the many different types of objects that exist in R. This chapter will introduce the basic objects in xts and zoo and their components, and offers examples of how to construct and examine the data.
@@ -75,4 +75,85 @@ Find the number of periods in your data
 Secret index tools
 Modifying timestamps
 Congratulations!
+
+
+=====================================================================================================================================================================
+
+Importing and Managing Financial Data in R
+5 hours, 15 Videos, 57 Exercises
+Course Description
+If you've ever done anything with financial or economic time series, you know the data come in various shapes, sizes, and periodicities. Getting the data into R can be stressful and time-consuming, especially when you need to merge data from several different sources into one data set. This course will cover importing data from local files as well as from internet sources.
+
+1 Introduction and downloading data
+A wealth of financial and economic data are available online. Learn how getSymbols() and Quandl() make it easy to access data from a variety of sources.
+Welcome to the course!
+Introducing getSymbols()
+Data sources
+Make getSymbols() return the data it retrieves
+Introduction to Quandl
+Introducing Quandl()
+Return data type
+Finding data from internet sources
+Find stock ticker from Yahoo Finance
+Download exchange rate data from Oanda
+Find and import Unemployment Rate data from FRED
+2. Extracting and transforming data
+You've learned how to import data from online sources, now it's time to see how to extract columns from the imported data. After you've learned how to extract columns from a single object, you will explore how to import, transform, and extract data from multiple instruments.
+Extracting columns from financial time series
+
+
+Extract one column from one instrument
+Extract multiple columns from one instrument
+Use getPrice to extract other columns
+Importing and transforming multiple instruments
+Use Quandl to download quarterly returns data
+Combine many instruments into one object
+Extract the Close column from many instruments
+3. Managing data from multiple sources
+Learn how to simplify and streamline your workflow by taking advantage of the ability to customize default arguments to `getSymbols()`. You will see how to customize defaults by data source, and then how to customize defaults by symbol. You will also learn how to handle problematic instrument symbols.
+Setting default arguments for getSymbols()
+Set a default data source
+Set default arguments for a getSymbols source
+Setting per-instrument default arguments
+Set default data source for one symbol
+Save and load symbol lookup table
+How *not* to specify the getSymbols() source
+Handling instrument symbols that clash or are not valid R names
+Access the object using get() or backticks
+Create valid name for one instrument
+Create valid names for multiple instruments
+4. Aligning data with different periodicities
+You've learned how to import, extract, and transform data from multiple data sources. You often have to manipulate data from different sources in order to combine them into a single data set. First, you will learn how to convert sparse, irregular data into a regular series. Then you will review how to aggregate dense data to a lower frequency. Finally, you will learn how to handle issues with intra-day data.
+
+
+Making irregular data regular
+Create a zero-width and regular xts object
+Use merge to make an irregular index regular
+Aggregating to lower frequency
+Aggregate daily data and merge with monthly data
+Align series to first and last day of month
+Aggregate to weekly, ending on Wednesdays
+Aggregating and combining intraday data
+Combine data that have timezones
+Make irregular intra-day data regular
+Fill missing values by trading day
+Aggregate irregular intra-day data
+5. Importing text data, and adjusting for corporate actions
+You've learned the core workflow of importing and manipulating financial data. Now you will see how to import data from text files of various formats. Then you will learn how to check data for weirdness and handle missing values. Finally, you will learn how to adjust stock prices for splits and dividends.
+
+Importing text files
+Import well-formatted daily OHLC data
+Import text files in other formats
+Handle date and time in separate columns
+Read text file containing multiple instruments
+Checking for weirdness
+Handle missing values
+Visualize imported data
+Cross reference sources
+Adjusting for corporate actions
+Adjust for stock splits and dividends
+Download split and dividend data
+Adjust univariate data for splits and dividends
+When to adjust data
+======================================================================================================================================================================
 
