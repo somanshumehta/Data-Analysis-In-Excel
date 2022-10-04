@@ -1,0 +1,78 @@
+
+Introduction to eXtensible Time Series, using xts and zoo for time series
+
+xts and zoo are just two of the many different types of objects that exist in R. This chapter will introduce the basic objects in xts and zoo and their components, and offers examples of how to construct and examine the data.
+
+Introducing xts and zoo objects
+What is an xts object?
+More than a matrix
+Your first xts object
+Deconstructing xts
+Time based indices
+Importing, exporting and converting time series
+Converting xts objects
+Importing data
+Exporting xts objects
+
+2 First Order of Business - Basic Manipulations
+Now that you can create basic xts objects, it's time to see how powerful they can be. This chapter will cover the basics of one of the most useful features of xts: time based subsetting. From there you'll explore additional ways to extract data using time phrases, and conclude with how to do basic operations like adding and subtracting your xts objects.
+
+Introducing time based queries
+The ISO-8601 standard
+Querying for dates
+Extracting recurring intraday intervals
+Alternative extraction techniques
+Row selection with time objects
+Update and replace elements
+Methods to find periods in your data
+Find the first or last period of time
+Combining first and last
+Math operations using xts
+Matrix arithmetic - add, subtract, multiply, and divide in time!
+Math with non-overlapping indexes
+
+3 Merging and modifying time series
+One of the most important parts of working with time series data involves creating derived time series. To do this effectively, it is critical to keep track of dates and times. In this chapter you will look at how xts handles merging new columns and rows into existing data, how to deal with the inevitable missing observations in time series, and how to shift your series in time.
+
+Merging time series
+Combining xts by column with merge
+Combining xts by row with rbind
+What types of data can be combined using merge?
+Handling missingness
+Fill missing values using last or previous observation
+NA interpolation using na.approx()
+Lags and differences
+Combine a leading and lagging time series
+Calculate a difference of a series using diff()
+What is the key difference in lag between xts and zoo
+
+4 Apply and aggregate by time
+Now the fun begins! A very common usage pattern for time series is to calculate values for disjoint periods of time or aggregate values from a higher frequency to a lower frequency. For most series, you'll often want to see the weekly mean of a price or measurement. You may even find yourself looking at data that has different frequencies and you need to normalize to the lowest frequency. This chapter is where it all happens. Hang tight, and lets get going!
+
+Apply functions by time
+Find intervals by time in xts
+Apply a function by time period(s)
+Using lapply() and split() to apply functions on intervals
+Selection by endpoints vs. split-lapply-rbind
+Converting periodicity
+Convert univariate series to OHLC data
+Convert a series to a lower frequency
+Rolling functions
+Calculate basic rolling value of series by month
+Calculate the rolling standard deviation of a time series
+Hide Details
+
+5 Extra features of xts
+Now that you are comfortable with most of the core features, its time to explore some of the lesser known (but powerful!) aspects of working with xts. In this final chapter you will use the internals of the index to find repeating itervals, see how xts provides intuitive time zone support, and experiment with ways to explore your data by time - including identifying frequency and coverage in time. Let's finish this course!
+
+Index, attributes, and time zones
+Time via index()
+Class attributes - tclass, tzone, and tformat
+Time Zones (and why you should care!)
+Periods, periodicity and timestamps
+Determining periodicity
+Find the number of periods in your data
+Secret index tools
+Modifying timestamps
+Congratulations!
+
